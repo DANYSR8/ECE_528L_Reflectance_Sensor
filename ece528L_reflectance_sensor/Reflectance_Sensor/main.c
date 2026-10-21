@@ -21,6 +21,79 @@
 #include "inc/Reflectance_Sensor.h"
 #include "inc/Print_Binary.h"
 
+void Detect_Line_Position(uint8_t reflectance_sensor_data){
+    
+    switch(reflectance_sensor_data){
+        
+        case 0x18:
+        printf("Center");
+        LED1_Output(RED_LED_OFF);
+        LED2_Output(RGB_LED_GREEN);
+        break;
+        
+        case 0x1C:
+        printf("Slightly Left from Center");
+        LED1_Output(RED_LED_OFF);
+        LED2_Output(RGB_LED_YELLOW);
+        break;
+        
+        case 0x38:
+        printf("Slightly Right from Center");
+        LED1_Output(RED_LED_OFF);
+        LED2_Output(RGB_LED_PINK);
+        break;
+                
+                
+        case 0x01:
+        printf("Far Left from Center");
+        LED1_Output(RED_LED_OFF);
+        LED2_Output(RGB_LED_WHITE);
+        break;
+
+        case 0x80:
+        printf("Far Right from Center");
+        LED1_Output(RED_LED_OFF);
+        LED2_Output(RGB_LED_SKY_BLUE);
+        break;
+        
+                
+        case 0xF8:
+        printf("Left Turn"); 
+        LED1_Output(RED_LED_ON);
+        LED2_Output(RGB_LED_WHITE);
+        break;
+        
+        
+        case 0x1F:
+        printf("Right Turn");
+        LED1_Output(RED_LED_ON);
+        LED2_Output(RGB_LED_SKY_BLUE);
+        break;
+                
+                
+        case 0xFF:
+        printf("T-Intersection");
+        LED1_Output(RED_LED_ON);
+        LED2_Output(RGB_LED_BLUE);
+        break;
+                
+        
+        case 0x00:
+        printf("Dead End");
+        LED1_Output(RED_LED_ON);
+        LED2_Output(RGB_LED_BLUE);
+        break;
+
+        
+        default:
+        printf("Unknown sensor pattern: 0x%02X\n",reflectance_sensor_data);
+        break;
+    
+    }
+    
+}
+
+
 int main(void)
 {
     // Initialize the 48 MHz Clock
