@@ -87,6 +87,8 @@ void Detect_Line_Position(uint8_t reflectance_sensor_data){
         
         default:
         printf("Unknown sensor pattern: 0x%02X\n",reflectance_sensor_data);
+        LED1_Output(RED_LED_OFF);
+        LED2_Output(RGB_LED_OFF);
         break;
     
     }
