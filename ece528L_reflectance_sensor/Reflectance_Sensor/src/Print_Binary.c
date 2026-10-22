@@ -15,30 +15,28 @@
 void Print_Binary(uint8_t value_to_convert)
 {
     // Initial setup 
-int i = 0; 
+
 int remainder[8]; 
 uint8_t quotient = value_to_convert; 
 
 
-while (quotient > 0) {
-
-    remainder[i] = quotient % 2 ;
-    quotient = quotient / 2 ; 
-    i = i + 1 ; 
-
+for (int i = 0; i < 8; i++)
+{
+    remainder[i] = quotient % 2;
+    quotient = quotient / 2;
 }
 
 
 printf("Binary: ");
-for (int j = i - 1; j >= 0; j--) {
+for (int j = 7; j >= 0; j--) {
 
-    if (j % 4 == 0 & j != 0)
+    if (j % 4 == 0 && j != 0)
     {
-        printf ("%u_", remainder[j]);
+        printf ("%d_", remainder[j]);
     }
 
     else{
-        printf("%u", remainder[j]);
+        printf("%d", remainder[j]);
     }
     
 

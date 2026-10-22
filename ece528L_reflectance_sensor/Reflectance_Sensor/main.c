@@ -117,7 +117,8 @@ int main(void)
     while(1)
     {
         reflectance_sensor_data = Reflectance_Sensor_Read(1000);
-        Print_Binary(reflectance_sensor_data);
+        //Print_Binary(reflectance_sensor_data);
+        Detect_Line_Position(reflectance_sensor_data);
         Clock_Delay1ms(10);
     }
 }
