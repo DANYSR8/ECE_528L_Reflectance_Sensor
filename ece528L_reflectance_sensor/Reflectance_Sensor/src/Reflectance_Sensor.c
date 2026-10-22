@@ -42,23 +42,39 @@ void Reflectance_Sensor_Init()
     // clearing Bit 3 of the SEL0 and SEL1 registers for P5
     // and setting Bit 3 of the DIR register for P5
 
+    P5->SEL0 &= ~0x08; //DSR
+    P5->SEL1 &= ~0x08; //DSR
+    P5->DIR |= 0x08; //DSR
 
     // Turn off the even-numbered IR LEDs by
     // clearing Bit 3 of the OUT register for P5
+
+
+    P5->OUT &= ~0x08; //DSR
 
 
     // Configure P9.2 as an output GPIO pin by
     // clearing Bit 2 of the SEL0 and SEL1 registers for P9
     // and setting Bit 2 of the DIR register for P9
 
+    P9->SEL0 &= ~0x04; //DSR
+    P9->SEL1 &= ~0x04; //DSR
+    P9->DIR |= 0x04; //DSR
+
 
     // Turn off the odd-numbered IR LEDs by
     // clearing Bit 2 of the OUT register for P9
+
+    P9->OUT &= ~0x04; //DSR
 
 
     // Configure P7.0 - P7.7 as input GPIO pins by
     // clearing Bits 0 to 7 of the SEL0, SEL1, and DIR registers for P7
 
+
+    P7->SEL0 &= ~0xFF; //DSR
+    P7->SEL1 &= ~0xFF; //DSR
+    P7->DIR &= ~0xFF; //DSR
 
 }
 
@@ -67,27 +83,37 @@ uint8_t Reflectance_Sensor_Read(uint32_t time)
     // Turn on the even-numbered IR LEDs by
     // setting Bit 3 of the OUT register for P5
 
+    P5->OUT |= 0x08; //DSR
 
     // Turn on the odd-numbered IR LEDs by
     // setting Bit 2 of the OUT register for P9
 
+    P9->OUT |= 0x04; //DSR
 
     // Configure P7.0 - P7.7 as output GPIO pins by
     // setting Bits 0 to 7 of the DIR register for P7
 
+    P7->SEL0 &= ~0xFF; //DSR
+    P7->SEL1 &= ~0xFF; //DSR
+    P7->DIR |= 0xFF; //DSR
 
     // Set the P7.0 - P7.7 pins to high by
     // setting Bits 0 to 7 of the OUT register for P7
 
+    P7->OUT |= 0xFF; //DSR
 
     // Wait for 10 us using the Clock_Delay1us function
 
+    Clock_Delay1us(10); //DSR
 
     // After waiting 10 us, configure P7.0 - P7.7 as input GPIO pins
     // by clearing Bits 0 to 7 of the DIR register for P7
 
+    P7->DIR &= ~0xFF; //DSR
 
     // Call the Clock_Delay1us function and pass in the "time" input parameter
+
+    Clock_Delay1us(time);
 
 
     // Declare a local uint8_t variable called "reflectance_value"
@@ -99,10 +125,12 @@ uint8_t Reflectance_Sensor_Read(uint32_t time)
     // Turn off the even-numbered IR LEDs by
     // clearing Bit 3 of the OUT register for P5
 
+    P5->OUT &= ~0x08; //DSR
 
     // Turn off the odd-numbered IR LEDs by
     // clearing Bit 2 of the OUT register for P9
 
+    P9->OUT &= ~0x04; //DSR
 
     // Return the local variable, "reflectance_value"
     return reflectance_value;
